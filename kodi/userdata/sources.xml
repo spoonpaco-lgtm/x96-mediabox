@@ -4,16 +4,25 @@
     </programs>
     <video>
         <default pathversion="1"></default>
-        <!-- NAS NasZonnehof. De mapnamen vult tools/03-kodi-schoon-installeren.ps1 in.
-             NFS heeft de voorkeur (stabieler bij 4K); valt terug op SMB als NFS uit staat op de NAS. -->
+        <!-- NAS NasZonnehof (DS213, DSM 6.2). NFS-regels op de NAS: alleen 192.168.178.167, alleen-lezen. -->
         <source>
-            <name>NAS Films</name>
-            <path pathversion="1">nfs://192.168.178.2/volume1/FILMS_MAP/</path>
+            <name>Films</name>
+            <path pathversion="1">nfs://192.168.178.2/volume1/films/</path>
             <allowsharing>true</allowsharing>
         </source>
         <source>
-            <name>NAS Series</name>
-            <path pathversion="1">nfs://192.168.178.2/volume1/SERIES_MAP/</path>
+            <name>Series</name>
+            <path pathversion="1">nfs://192.168.178.2/volume1/series/</path>
+            <allowsharing>true</allowsharing>
+        </source>
+        <source>
+            <name>Kinderfilms</name>
+            <path pathversion="1">nfs://192.168.178.2/volume1/kinderfilms/</path>
+            <allowsharing>true</allowsharing>
+        </source>
+        <source>
+            <name>Comedy shows</name>
+            <path pathversion="1">nfs://192.168.178.2/volume1/Comedy shows/</path>
             <allowsharing>true</allowsharing>
         </source>
     </video>
@@ -25,7 +34,7 @@
     </pictures>
     <files>
         <default pathversion="1"></default>
-        <!-- Map op de box met de repository-zips uit de GitHub-release (wordt door tools/03-kodi-config.ps1 neergezet) -->
+        <!-- Map op de box met de repository-zips uit de GitHub-release (wordt door tools/03-kodi-schoon-installeren.ps1 neergezet) -->
         <source>
             <name>X96 setup</name>
             <path pathversion="1">/sdcard/x96-setup/</path>

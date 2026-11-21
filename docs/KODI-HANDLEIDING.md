@@ -50,10 +50,17 @@ Add-ons → Installeren vanuit repository → Kodi Add-on repository → PVR-cli
 Installeren. De twee lijsten (iptv-org NL en Free-TV) staan al klaar; Kodi laadt ze na een herstart.
 Niets te zien? Open de add-on → Configureren: er moeten twee instanties staan.
 
-## 7. NAS-films
-Video's → Bestanden → **NAS Films** → (menu/lang indrukken) → **Inhoud wijzigen** → Films →
-The Movie Database → OK → Ja (bibliotheek scannen). Herhaal met **NAS Series** → Tv-series.
-Bij SMB vraagt Kodi eenmalig om gebruikersnaam en wachtwoord van de Kodi-gebruiker op de NAS.
+## 7. NAS-films en -series
+De vier NAS-mappen staan al klaar onder Video's → Bestanden: **Films**, **Series**, **Kinderfilms**
+en **Comedy shows**. Per map: (menu/lang indrukken) → **Inhoud wijzigen** →
+- Films en Kinderfilms: **Films** → The Movie Database
+- Series: **Tv-series** → The Movie Database
+- Comedy shows: **Films** (of Tv-series als het afleveringen zijn)
+
+→ OK → Ja (bibliotheek scannen). De eerste scan duurt even; de NAS (DS213) is niet de snelste.
+
+Op de NAS staat per map een NFS-regel: alleen de box (192.168.178.167), alleen-lezen. Kodi kan dus
+niets wissen of wijzigen op de NAS.
 
 ## 8. Beeld op de projector
 Instellingen → Speler → Video's:

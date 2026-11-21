@@ -15,26 +15,9 @@ if (-not $backups) {
     Read-Host "Enter"; exit 1
 }
 
-# --- NAS-mappen invullen -----------------------------------------------------
-Write-Host ""
-Write-Host "NAS NasZonnehof (192.168.178.2)"
-$films  = Read-Host "Naam van de gedeelde map met FILMS (bijv. video of Films)"
-$series = Read-Host "Naam van de gedeelde map met SERIES (leeg laten als die er niet is)"
-$proto  = Read-Host "Protocol: typ NFS (aanbevolen, moet aan staan op de NAS) of SMB"
-$proto  = $proto.ToUpper()
-
-$tmp = Join-Path $env:TEMP "x96-sources.xml"
-$xml = Get-Content (Join-Path $cfg "sources.xml") -Raw
-if ($proto -eq "SMB") {
-    $xml = $xml -replace "nfs://192\.168\.178\.2/volume1/", "smb://192.168.178.2/"
-}
-$xml = $xml -replace "FILMS_MAP", $films
-if ([string]::IsNullOrWhiteSpace($series)) {
-    $xml = [regex]::Replace($xml, "(?s)\s*<source>\s*<name>NAS Series</name>.*?</source>", "")
-} else {
-    $xml = $xml -replace "SERIES_MAP", $series
-}
-Set-Content -Path $tmp -Value $xml -Encoding UTF8
+# --- NAS -----------------------------------------------------------------------
+# Films, Series, Kinderfilms en Comedy shows staan vast in kodi\userdata\sources.xml (NFS, alleen-lezen).
+$tmp = Join-Path $cfg "sources.xml"
 
 # --- Bevestigen ---------------------------------------------------------------
 Write-Host ""
