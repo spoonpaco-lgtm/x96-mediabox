@@ -1,0 +1,16 @@
+<advancedsettings version="1.0">
+    <!-- Buffer voor streams en NAS: 200 MB geheugen (box heeft genoeg RAM),
+         4x vooruit lezen zodat 4K-remuxen over het netwerk niet haperen. -->
+    <cache>
+        <memorysize>209715200</memorysize>
+        <buffermode>1</buffermode>
+        <readfactor>4</readfactor>
+    </cache>
+    <!-- Bibliotheek: geen dubbele scans bij opstarten, alleen op verzoek of via de skin. -->
+    <videolibrary>
+        <importwatchedstate>true</importwatchedstate>
+        <importresumepoint>true</importresumepoint>
+    </videolibrary>
+    <!-- NFS: grotere blokken, sneller bij grote bestanden. -->
+    <nfschunksize>131072</nfschunksize>
+</advancedsettings>

@@ -1,0 +1,88 @@
+name: Build X96 Mediabox
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: 'platforms;android-34 build-tools;34.0.0 platform-tools'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Build launcher APK
+        working-directory: launcher
+        run: gradle assembleRelease --no-daemon --stacktrace
+
+      - name: Read version
+        id: ver
+        run: echo "version=$(grep -oP 'versionName "\K[^"]+' launcher/app/build.gradle)" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch Kodi repository zips
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p kodi/zips
+          # Elementum: nieuwste release van de officiele ElementumOrg-repository
+          url=$(gh api repos/ElementumOrg/repository.elementumorg/releases/latest \
+                --jq '.assets[] | select(.name | test("^repository\\.elementumorg-.*\\.zip$")) | .browser_download_url' | head -n1)
+          test -n "$url"
+          curl -fsSL "$url" -o "kodi/zips/$(basename "$url")"
+          # jurialmunkey (Arctic Fuse 2 / Arctic Horizon 2): zip staat op de github.io-pagina
+          base=https://jurialmunkey.github.io/repository.jurialmunkey/
+          zip=$(curl -fsSL "$base" | grep -oE 'repository\.jurialmunkey-[0-9.]+\.zip' | sort -V | tail -n1)
+          test -n "$zip"
+          curl -fsSL "$base$zip" -o "kodi/zips/$zip"
+          ls -la kodi/zips
+          for z in kodi/zips/*.zip; do unzip -tq "$z"; done
+
+      - name: Package
+        run: |
+          set -euo pipefail
+          v=${{ steps.ver.outputs.version }}
+          cp launcher/app/build/outputs/apk/release/app-release.apk "x96-launcher-$v.apk"
+          mkdir -p pkg/x96-mediabox
+          cp -r README.md docs tools kodi pkg/x96-mediabox/
+          cp "x96-launcher-$v.apk" pkg/x96-mediabox/
+          (cd pkg && zip -qr "../x96-mediabox-$v.zip" x96-mediabox)
+          unzip -l "x96-mediabox-$v.zip"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: x96-mediabox
+          path: |
+            x96-mediabox-${{ steps.ver.outputs.version }}.zip
+            x96-launcher-${{ steps.ver.outputs.version }}.apk
+          if-no-files-found: error
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: X96 Mediabox ${{ steps.ver.outputs.version }}
+          files: |
+            x96-mediabox-${{ steps.ver.outputs.version }}.zip
+            x96-launcher-${{ steps.ver.outputs.version }}.apk
+          make_latest: true

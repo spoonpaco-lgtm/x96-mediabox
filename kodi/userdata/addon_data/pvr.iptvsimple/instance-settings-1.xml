@@ -1,0 +1,13 @@
+<settings version="2">
+    <setting id="kodi_addon_instance_name">Nederland (iptv-org)</setting>
+    <setting id="kodi_addon_instance_enabled">true</setting>
+    <setting id="m3uPathType">1</setting>
+    <setting id="m3uUrl">https://iptv-org.github.io/iptv/countries/nl.m3u</setting>
+    <setting id="m3uCache">true</setting>
+    <setting id="m3uRefreshMode">2</setting>
+    <setting id="m3uRefreshHour">4</setting>
+    <setting id="epgPathType">1</setting>
+    <setting id="epgUrl"></setting>
+    <setting id="logoPathType">1</setting>
+    <setting id="logoFromEpg">1</setting>
+</settings>

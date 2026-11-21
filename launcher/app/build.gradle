@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'nl.spoonpaco.x96launcher'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "nl.spoonpaco.x96launcher"
+        minSdk 27
+        targetSdk 34
+        versionCode 1
+        versionName "0.1.0"
+    }
+
+    // Vaste sleutel in de (private) repo, zodat elke nieuwe versie over de vorige heen installeert.
+    signingConfigs {
+        x96 {
+            storeFile rootProject.file("keystore/x96.p12")
+            storeType "pkcs12"
+            storePassword "x96launcher"
+            keyAlias "x96"
+            keyPassword "x96launcher"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.x96
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}

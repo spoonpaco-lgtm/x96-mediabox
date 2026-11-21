@@ -1,0 +1,43 @@
+<sources>
+    <programs>
+        <default pathversion="1"></default>
+    </programs>
+    <video>
+        <default pathversion="1"></default>
+        <!-- NAS NasZonnehof. De mapnamen vult tools/03-kodi-schoon-installeren.ps1 in.
+             NFS heeft de voorkeur (stabieler bij 4K); valt terug op SMB als NFS uit staat op de NAS. -->
+        <source>
+            <name>NAS Films</name>
+            <path pathversion="1">nfs://192.168.178.2/volume1/FILMS_MAP/</path>
+            <allowsharing>true</allowsharing>
+        </source>
+        <source>
+            <name>NAS Series</name>
+            <path pathversion="1">nfs://192.168.178.2/volume1/SERIES_MAP/</path>
+            <allowsharing>true</allowsharing>
+        </source>
+    </video>
+    <music>
+        <default pathversion="1"></default>
+    </music>
+    <pictures>
+        <default pathversion="1"></default>
+    </pictures>
+    <files>
+        <default pathversion="1"></default>
+        <!-- Map op de box met de repository-zips uit de GitHub-release (wordt door tools/03-kodi-config.ps1 neergezet) -->
+        <source>
+            <name>X96 setup</name>
+            <path pathversion="1">/sdcard/x96-setup/</path>
+            <allowsharing>true</allowsharing>
+        </source>
+        <source>
+            <name>jurialmunkey (skins)</name>
+            <path pathversion="1">https://jurialmunkey.github.io/repository.jurialmunkey/</path>
+            <allowsharing>true</allowsharing>
+        </source>
+    </files>
+    <games>
+        <default pathversion="1"></default>
+    </games>
+</sources>
