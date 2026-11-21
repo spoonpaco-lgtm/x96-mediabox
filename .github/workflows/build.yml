@@ -63,7 +63,7 @@ jobs:
           v=${{ steps.ver.outputs.version }}
           cp launcher/app/build/outputs/apk/release/app-release.apk "x96-launcher-$v.apk"
           mkdir -p pkg/x96-mediabox
-          cp -r README.md docs tools kodi pkg/x96-mediabox/
+          cp -r README.md START.bat docs tools kodi pkg/x96-mediabox/
           cp "x96-launcher-$v.apk" pkg/x96-mediabox/
           (cd pkg && zip -qr "../x96-mediabox-$v.zip" x96-mediabox)
           unzip -l "x96-mediabox-$v.zip"
