@@ -10,8 +10,8 @@ android {
         applicationId "nl.spoonpaco.x96launcher"
         minSdk 27
         targetSdk 34
-        versionCode 6
-        versionName "0.2.2"
+        versionCode 7
+        versionName "0.2.3"
     }
 
     // Vaste sleutel in de (private) repo, zodat elke nieuwe versie over de vorige heen installeert.

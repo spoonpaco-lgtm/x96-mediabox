@@ -31,10 +31,42 @@ Confirm-Ja "Kodi schoon installeren?"
 Adb-Shell "am force-stop org.xbmc.kodi"
 Write-Host "Kodi wissen: $(Adb-Shell 'pm clear org.xbmc.kodi')"
 
-Write-Host "Kodi 1x opstarten om de mappen aan te maken (40 s)..."
+# Controle: is de oude Kodi-map (met de Diggz-build) echt weg?
+$left = (Adb-Shell "ls -d $KODI_DATA 2>/dev/null" | Out-String).Trim()
+if ($left) {
+    Write-Host "De oude Kodi-map staat er nog; die wordt nu verwijderd (backup staat op F:)."
+    Adb-Shell "rm -rf $KODI_DATA"
+}
+$left = (Adb-Shell "ls -d $KODI_DATA 2>/dev/null" | Out-String).Trim()
+if ($left) {
+    Write-Host "!!! De oude Kodi-map kon niet worden verwijderd. Gestopt; er is nog niets nieuws neergezet." -ForegroundColor Red
+    Read-Host "Enter"; exit 1
+}
+Write-Host "Oude Kodi-build is weg." -ForegroundColor Green
+
+# Kodi 1x leeg opstarten en wachten tot hij echt klaar is:
+# het logbestand moet 15 seconden niet meer groeien (maximaal 3 minuten wachten).
+Write-Host -NoNewline "Kodi 1x opstarten en wachten tot hij klaar is"
 Adb-Shell "monkey -p org.xbmc.kodi -c android.intent.category.LAUNCHER 1" | Out-Null
-Start-Sleep -Seconds 40
+$log = "$KODI_DATA/temp/kodi.log"
+$deadline = (Get-Date).AddSeconds(180)
+$prev = -1; $stable = 0; $ready = $false
+while ((Get-Date) -lt $deadline) {
+    Start-Sleep -Seconds 5
+    Write-Host -NoNewline "."
+    $size = (Adb-Shell "stat -c %s $log 2>/dev/null" | Out-String).Trim()
+    if ($size -notmatch '^\d+$') { continue }
+    if ([int64]$size -eq $prev) { $stable += 5 } else { $stable = 0; $prev = [int64]$size }
+    if ($stable -ge 15) { $ready = $true; break }
+}
+Write-Host ""
+if (-not $ready) {
+    Write-Host "!!! Kodi was na 3 minuten nog niet klaar. Start Kodi zelf 1x, wacht op het beginscherm," -ForegroundColor Red
+    Write-Host "    en draai dit script daarna opnieuw." -ForegroundColor Red
+    Read-Host "Enter"; exit 1
+}
 Adb-Shell "am force-stop org.xbmc.kodi"
+Write-Host "Kodi is klaar en weer gesloten." -ForegroundColor Green
 
 $ud = "$KODI_DATA/userdata"
 & $ADB -s $BOX push $tmp "$ud/sources.xml"

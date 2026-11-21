@@ -11,6 +11,9 @@ Write-Host "Installeren: $($apk.Name)"
 Adb-Shell "cmd package set-home-activity nl.spoonpaco.x96launcher/.MainActivity"
 Adb-Shell "input keyevent KEYCODE_HOME"
 Write-Host ""
-Write-Host "Klaar. Terug naar de oude launcher:" -ForegroundColor Green
+Write-Host "Klaar. Kodi gaat nu vanzelf open: dat is de Kodi-modus, het is niet mislukt." -ForegroundColor Green
+Write-Host "Sluit Kodi af (menu -> Afsluiten) om de X96 Launcher zelf te zien."
+Write-Host ""
+Write-Host "Terug naar de oude launcher:"
 Write-Host "  adb shell cmd package set-home-activity com.amlogic.android.leanbacklauncher/.MainActivity"
 Read-Host "Enter om af te sluiten"
