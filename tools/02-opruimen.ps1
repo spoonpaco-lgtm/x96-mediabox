@@ -17,7 +17,12 @@ $pakketten = @(
     @{ id = "org.chromium.webview_shell";   wat = "Browser2 (kale testbrowser)" },
     @{ id = "com.android.printspooler";     wat = "Afdrukken" },
     @{ id = "com.android.deskclock";        wat = "Klok" },
-    @{ id = "com.google.android.partnersetup"; wat = "Google Partner Setup" }
+    @{ id = "com.google.android.partnersetup"; wat = "Google Partner Setup" },
+    @{ id = "com.droidlogic.updater";       wat = "Droidlogic Updater (tweede OTA-updater)" },
+    @{ id = "com.android.tv";               wat = "Live TV (geen tuner)" },
+    @{ id = "com.android.se";               wat = "Secure Element (NFC, niet aanwezig)" },
+    @{ id = "com.google.android.youtube";   wat = "YouTube-app (SmartTube blijft)" },
+    @{ id = "com.google.android.googlequicksearchbox"; wat = "Google-app (~555 MB; spraakzoeken valt weg)" }
 )
 
 Write-Host "Deze apps worden UITGESCHAKELD (blijven op de box, kunnen terug):"
