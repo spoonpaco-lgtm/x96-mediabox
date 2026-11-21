@@ -60,7 +60,6 @@ public class MainActivity extends Activity {
             "com.google.android.youtube",
             "com.amazon.avod.thirdpartyclient",
             "org.videolan.vlc",
-            "com.ionitech.airscreen",
     };
 
     static final Map<String, String> BLURB = new HashMap<>();
@@ -71,7 +70,6 @@ public class MainActivity extends Activity {
         BLURB.put("com.google.android.youtube", "YouTube.");
         BLURB.put("com.amazon.avod.thirdpartyclient", "Prime Video.");
         BLURB.put("org.videolan.vlc", "Speelt elk bestand af, ook van USB of het netwerk.");
-        BLURB.put("com.ionitech.airscreen", "Casten vanaf je telefoon (Cast, AirPlay, DLNA).");
         BLURB.put("com.lonelycatgames.Xplore", "Bestanden op de box, USB en het netwerk.");
     }
 

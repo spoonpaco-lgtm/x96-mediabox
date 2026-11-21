@@ -42,4 +42,4 @@ Elk script vraagt eerst om `JA` voordat het iets verandert.
 
 - Firmware krijgt geen updates meer (securitypatch 2021-10). Opruimen helpt, maar de box blijft verouderd.
 - Elementum streamt via torrents en uploadt dus ook. Downloaden uit illegale bron is in Nederland verboden.
-- Casten: YouTube via tv-code; andere apps via AirScreen. Echte Chromecast built-in kan niet op deze box.
+- Casten: YouTube via tv-code in SmartTube. Echte Chromecast built-in kan niet op deze box.

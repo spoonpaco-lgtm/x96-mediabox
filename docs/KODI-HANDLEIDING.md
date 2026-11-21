@@ -32,13 +32,11 @@ Installeer allebei, kies er één bij Instellingen → Interface → Skin, en wi
 voelt op de projector. Beide installeren **TMDb Helper** mee; die vult de rijen.
 
 ## 4b. Rij met apps op het beginscherm
-De apps staan al klaar als Kodi-favorieten (SmartTube, Prime Video, VLC, Chrome, AirScreen, Bestanden,
+De apps staan al klaar als Kodi-favorieten (SmartTube, Prime Video, VLC, Chrome, Bestanden,
 Android-instellingen, X96 Launcher). Zet ze als rij op het beginscherm:
 Instellingen → Skin-instellingen → **Beginscherm aanpassen** (Customise home) → bij een menu-item of
 widget-rij **Favorieten** kiezen. De precieze naam van het menu verschilt per skin; het staat onder de
 instellingen van Arctic Fuse 2 / Arctic Horizon 2.
-
-AirScreen staat nog niet op de box: installeer hem via de Play Store als je wilt casten.
 
 ## 5. Trakt
 Trakt houdt bij wat je kijkt en vult "Verder kijken" en je watchlist.
