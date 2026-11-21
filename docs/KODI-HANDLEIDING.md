@@ -1,5 +1,8 @@
 # Kodi inrichten op de projector
 
+**Kodi is het startscherm.** Box aan en de Home-knop openen Kodi. Kodi afsluiten (menu → Afsluiten)
+brengt je in de X96 Launcher: daar staan alle apps en de schakelaar "Kodi bij opstarten".
+
 Na `tools/03-kodi-schoon-installeren.ps1` staat Kodi leeg, maar met de NAS, de buffer-instellingen,
 de IPTV-lijsten en de repo-zips al klaar. Add-ons installeren kan alleen vanuit Kodi zelf (Kodi
 vraagt dan zelf om afhankelijkheden), dus deze stappen doe je met de afstandsbediening. Reken op 15 minuten.
@@ -27,6 +30,15 @@ Add-ons → Installeren vanuit repository → **jurialmunkey** → Uiterlijk →
 
 Installeer allebei, kies er één bij Instellingen → Interface → Skin, en wissel gerust tot je weet wat beter
 voelt op de projector. Beide installeren **TMDb Helper** mee; die vult de rijen.
+
+## 4b. Rij met apps op het beginscherm
+De apps staan al klaar als Kodi-favorieten (SmartTube, Prime Video, VLC, Chrome, AirScreen, Bestanden,
+Android-instellingen, X96 Launcher). Zet ze als rij op het beginscherm:
+Instellingen → Skin-instellingen → **Beginscherm aanpassen** (Customise home) → bij een menu-item of
+widget-rij **Favorieten** kiezen. De precieze naam van het menu verschilt per skin; het staat onder de
+instellingen van Arctic Fuse 2 / Arctic Horizon 2.
+
+AirScreen staat nog niet op de box: installeer hem via de Play Store als je wilt casten.
 
 ## 5. Trakt
 Trakt houdt bij wat je kijkt en vult "Verder kijken" en je watchlist.

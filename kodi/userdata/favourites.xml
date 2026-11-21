@@ -1,0 +1,10 @@
+<favourites>
+    <favourite name="SmartTube" thumb="androidapp://sources/apps/com.teamsmart.videomanager.tv.png">StartAndroidActivity(&quot;com.teamsmart.videomanager.tv&quot;)</favourite>
+    <favourite name="Prime Video" thumb="androidapp://sources/apps/com.amazon.avod.thirdpartyclient.png">StartAndroidActivity(&quot;com.amazon.avod.thirdpartyclient&quot;)</favourite>
+    <favourite name="VLC" thumb="androidapp://sources/apps/org.videolan.vlc.png">StartAndroidActivity(&quot;org.videolan.vlc&quot;)</favourite>
+    <favourite name="Chrome" thumb="androidapp://sources/apps/com.android.chrome.png">StartAndroidActivity(&quot;com.android.chrome&quot;)</favourite>
+    <favourite name="AirScreen" thumb="androidapp://sources/apps/com.ionitech.airscreen.png">StartAndroidActivity(&quot;com.ionitech.airscreen&quot;)</favourite>
+    <favourite name="Bestanden" thumb="androidapp://sources/apps/com.lonelycatgames.Xplore.png">StartAndroidActivity(&quot;com.lonelycatgames.Xplore&quot;)</favourite>
+    <favourite name="Android-instellingen" thumb="androidapp://sources/apps/com.android.tv.settings.png">StartAndroidActivity(&quot;com.android.tv.settings&quot;)</favourite>
+    <favourite name="X96 Launcher" thumb="androidapp://sources/apps/nl.spoonpaco.x96launcher.png">StartAndroidActivity(&quot;nl.spoonpaco.x96launcher&quot;)</favourite>
+</favourites>

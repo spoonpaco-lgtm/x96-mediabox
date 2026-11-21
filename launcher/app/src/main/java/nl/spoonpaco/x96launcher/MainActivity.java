@@ -82,6 +82,7 @@ public class MainActivity extends Activity {
         Drawable icon;
         Intent intent;
         String blurb;
+        Runnable action;   // in plaats van een intent (bijv. de Kodi-modus-schakelaar)
     }
 
     private final Handler handler = new Handler(Looper.getMainLooper());
@@ -98,15 +99,61 @@ public class MainActivity extends Activity {
         }
     };
 
+    // ------------------------------------------------------------------ Kodi-modus
+    // Box aan of Home-knop  -> Kodi.
+    // Kodi afgesloten       -> dit startscherm (vangnet).
+    // Het verschil: Home/opstarten levert een HOME-intent af, terugkeren na Kodi niet.
+
+    static final String KODI = "org.xbmc.kodi";
+    private boolean kodiPending;
+
+    private boolean kodiMode() {
+        return getSharedPreferences("x96", MODE_PRIVATE).getBoolean("kodi_mode", true);
+    }
+
+    private void setKodiMode(boolean on) {
+        getSharedPreferences("x96", MODE_PRIVATE).edit().putBoolean("kodi_mode", on).apply();
+    }
+
+    private static boolean isHome(Intent i) {
+        return i != null && Intent.ACTION_MAIN.equals(i.getAction()) && i.hasCategory(Intent.CATEGORY_HOME);
+    }
+
+    /** Start Kodi; false als Kodi er niet is of niet start. */
+    private boolean openKodi() {
+        Intent k = getPackageManager().getLaunchIntentForPackage(KODI);
+        if (k == null) k = getPackageManager().getLeanbackLaunchIntentForPackage(KODI);
+        if (k == null) return false;
+        try {
+            k.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            startActivity(k);
+            return true;
+        } catch (ActivityNotFoundException | SecurityException e) {
+            return false;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(buildScreen());
+        if (state == null && isHome(getIntent()) && kodiMode()) kodiPending = true;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        if (isHome(intent) && kodiMode()) kodiPending = true;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (kodiPending) {
+            kodiPending = false;
+            if (openKodi()) return;
+        }
         fillRows();
         handler.post(tick);
         if (firstTile != null) firstTile.requestFocus();
@@ -337,6 +384,17 @@ public class MainActivity extends Activity {
 
     private List<Tile> systemTiles() {
         List<Tile> list = new ArrayList<>();
+        Tile toggle = newTile("Kodi bij opstarten: " + (kodiMode() ? "aan" : "uit"), null, null, null,
+                getDrawable(android.R.drawable.ic_menu_rotate));
+        toggle.blurb = kodiMode()
+                ? "Box aan en Home-knop openen Kodi. Dit scherm zie je na Kodi afsluiten."
+                : "Box aan en Home-knop openen dit startscherm.";
+        toggle.action = () -> {
+            setKodiMode(!kodiMode());
+            fillRows();
+            if (firstTile != null) firstTile.requestFocus();
+        };
+        list.add(toggle);
         Drawable gear = getDrawable(android.R.drawable.ic_menu_preferences);
         list.add(newTile("Instellingen", null, null,
                 new Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK), gear));
@@ -361,6 +419,7 @@ public class MainActivity extends Activity {
     }
 
     private void launch(Tile tile) {
+        if (tile.action != null) { tile.action.run(); return; }
         try {
             startActivity(tile.intent);
         } catch (ActivityNotFoundException | SecurityException e) {

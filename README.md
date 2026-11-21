@@ -10,7 +10,7 @@ en een eigen Netflix-stijl startscherm.
 | --- | --- |
 | `kodi/userdata` | Kodi-instellingen: NAS-bronnen, buffer voor 4K, twee IPTV-lijsten |
 | `kodi/zips` | Repository-zips (Elementum, jurialmunkey-skins), gevuld door de GitHub-build |
-| `launcher` | **X96 Launcher**: Netflix-stijl startscherm (Android TV) |
+| `launcher` | **X96 Launcher**: start Kodi bij opstarten en op de Home-knop; na Kodi afsluiten een Netflix-stijl appscherm als vangnet |
 | `tools` | PowerShell-scripts die je op de pc draait, stap voor stap |
 | `docs/KODI-HANDLEIDING.md` | De klikstappen in Kodi zelf (add-ons, skin, Trakt) |
 
