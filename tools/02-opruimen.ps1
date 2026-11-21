@@ -11,7 +11,13 @@ $pakketten = @(
     @{ id = "com.cetusplay.remoteservice";  wat = "CetusPlay (luistert op het netwerk)" },
     @{ id = "com.overseas.store.appstore";  wat = "Overseas appstore" },
     @{ id = "com.yxt.appstore";             wat = "YXT AppStore" },
-    @{ id = "cm.aptoidetv.pt";              wat = "Aptoide TV" }
+    @{ id = "cm.aptoidetv.pt";              wat = "Aptoide TV" },
+    @{ id = "com.android.camera2";          wat = "Camera (box heeft geen camera)" },
+    @{ id = "com.droidlogic.exoplayer2.demo"; wat = "ExoPlayer-demo (testapp)" },
+    @{ id = "org.chromium.webview_shell";   wat = "Browser2 (kale testbrowser)" },
+    @{ id = "com.android.printspooler";     wat = "Afdrukken" },
+    @{ id = "com.android.deskclock";        wat = "Klok" },
+    @{ id = "com.google.android.partnersetup"; wat = "Google Partner Setup" }
 )
 
 Write-Host "Deze apps worden UITGESCHAKELD (blijven op de box, kunnen terug):"
