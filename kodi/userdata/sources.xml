@@ -40,11 +40,6 @@
             <path pathversion="1">/sdcard/x96-setup/</path>
             <allowsharing>true</allowsharing>
         </source>
-        <source>
-            <name>jurialmunkey (skins)</name>
-            <path pathversion="1">https://jurialmunkey.github.io/repository.jurialmunkey/</path>
-            <allowsharing>true</allowsharing>
-        </source>
     </files>
     <games>
         <default pathversion="1"></default>

@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -42,7 +41,8 @@ import java.util.Map;
 
 /**
  * X96 Launcher: Netflix-achtig startscherm voor de X96 aan de projector.
- * Bovenin een grote "hero" van de geselecteerde tegel, daaronder rijen tegels.
+ * Bovenin titel en omschrijving van de geselecteerde tegel, daaronder rijen tegels.
+ * In de Kodi-modus is dit het vangnet dat je ziet na Kodi afsluiten.
  * Puur framework-Java, geen bibliotheken: klein en snel op een 32-bit box.
  */
 public class MainActivity extends Activity {
@@ -84,7 +84,6 @@ public class MainActivity extends Activity {
     }
 
     private final Handler handler = new Handler(Looper.getMainLooper());
-    private ImageView heroImage;
     private TextView heroTitle, heroBlurb, clock;
     private LinearLayout rows;
     private ScrollView scroller;
@@ -176,27 +175,6 @@ public class MainActivity extends Activity {
         FrameLayout root = new FrameLayout(this);
         root.setBackgroundColor(Color.BLACK);
 
-        // Hero: achtergrondbeeld van de geselecteerde app, gedimd, met verloop naar zwart.
-        heroImage = new ImageView(this);
-        heroImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        heroImage.setAlpha(0.55f);
-        FrameLayout.LayoutParams heroLp = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, dp(330), Gravity.TOP | Gravity.END);
-        heroLp.leftMargin = dp(260);
-        root.addView(heroImage, heroLp);
-
-        View fadeLeft = new View(this);
-        fadeLeft.setBackground(new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,
-                new int[]{Color.BLACK, Color.BLACK, Color.TRANSPARENT}));
-        root.addView(fadeLeft, new FrameLayout.LayoutParams(dp(720), dp(330)));
-
-        View fadeDown = new View(this);
-        fadeDown.setBackground(new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{Color.TRANSPARENT, Color.BLACK}));
-        FrameLayout.LayoutParams fdLp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(140));
-        fdLp.topMargin = dp(200);
-        root.addView(fadeDown, fdLp);
-
         // Logo + klok
         TextView logo = text("X96", 30, RED, true);
         logo.setLetterSpacing(0.08f);
@@ -221,7 +199,7 @@ public class MainActivity extends Activity {
         heroText.addView(heroBlurb);
         FrameLayout.LayoutParams htLp = new FrameLayout.LayoutParams(-2, -2);
         htLp.leftMargin = dp(48);
-        htLp.topMargin = dp(110);
+        htLp.topMargin = dp(90);
         root.addView(heroText, htLp);
 
         // Rijen
@@ -233,7 +211,7 @@ public class MainActivity extends Activity {
         rows.setPadding(0, 0, 0, dp(48));
         scroller.addView(rows);
         FrameLayout.LayoutParams sLp = new FrameLayout.LayoutParams(-1, -1);
-        sLp.topMargin = dp(270);
+        sLp.topMargin = dp(200);
         root.addView(scroller, sLp);
 
         return root;
@@ -350,9 +328,6 @@ public class MainActivity extends Activity {
     private void showHero(Tile tile) {
         heroTitle.setText(tile.label);
         heroBlurb.setText(tile.blurb != null ? tile.blurb : "");
-        Drawable d = tile.banner != null ? tile.banner : tile.icon;
-        heroImage.setImageDrawable(d != null ? d.getConstantState() != null
-                ? d.getConstantState().newDrawable().mutate() : d : new ColorDrawable(BG));
     }
 
     // ------------------------------------------------------------------ apps

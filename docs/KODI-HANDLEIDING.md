@@ -7,6 +7,11 @@ Na `tools/03-kodi-schoon-installeren.ps1` staat Kodi leeg, maar met de NAS, de b
 de IPTV-lijsten en de repo-zips al klaar. Add-ons installeren kan alleen vanuit Kodi zelf (Kodi
 vraagt dan zelf om afhankelijkheden), dus deze stappen doe je met de afstandsbediening. Reken op 15 minuten.
 
+## 0. Kodi niet vanzelf laten bijwerken
+Kodi komt uit de Play Store. Een grote update (bijv. naar Kodi 22) kan Elementum of de skin breken.
+Play Store → zoek **Kodi** → open de app-pagina → menu (drie puntjes) → **Automatisch updaten uit**.
+Bijwerken doe je later zelf, als je weet dat alles werkt.
+
 ## 1. Onbekende bronnen toestaan
 Instellingen → Systeem → Add-ons → **Onbekende bronnen: aan** → Ja.
 
@@ -47,11 +52,17 @@ De precieze namen van de menu's verschillen per skin; het staat onder de instell
 Arctic Fuse 2 / Arctic Horizon 2.
 
 ## 5. Trakt
-Trakt houdt bij wat je kijkt en vult "Verder kijken" en je watchlist.
+Trakt houdt bij wat je kijkt en vult "Verder kijken" en je watchlist. Twee onderdelen houden bij,
+elk hun eigen deel, zodat niets dubbel in je geschiedenis komt:
+- **Elementum** houdt de Elementum-films en -series bij;
+- de **Trakt-add-on** houdt alleen de NAS bij.
+
 1. Add-ons → Installeren vanuit repository → **Kodi Add-on repository** → Programma-add-ons → **Trakt** → Installeren.
 2. Open Trakt: er verschijnt een code. Ga op je telefoon naar **trakt.tv/activate** en voer de code in.
-3. Elementum → Instellingen → **Tracking** → Trakt kiezen → autoriseren (zelfde manier).
-4. TMDb Helper → Instellingen → Trakt → autoriseren. Dan tonen de skin-rijen je Trakt-lijsten.
+3. Trakt → Instellingen → **Uitsluitingen** → **Plug-in-bronnen uitsluiten: aan**. Zo meldt deze add-on
+   Elementum niet nog een keer.
+4. Elementum → Instellingen → **Tracking** → Trakt kiezen → autoriseren (zelfde manier met een code).
+5. TMDb Helper → Instellingen → Trakt → autoriseren. Dan tonen de rijen op het beginscherm je Trakt-lijsten.
 
 ## 6. IPTV
 Add-ons → Installeren vanuit repository → Kodi Add-on repository → PVR-clients → **PVR IPTV Simple Client** →
