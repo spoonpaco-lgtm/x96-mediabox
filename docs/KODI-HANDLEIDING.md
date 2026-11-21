@@ -31,12 +31,20 @@ Add-ons → Installeren vanuit repository → **jurialmunkey** → Uiterlijk →
 Installeer allebei, kies er één bij Instellingen → Interface → Skin, en wissel gerust tot je weet wat beter
 voelt op de projector. Beide installeren **TMDb Helper** mee; die vult de rijen.
 
-## 4b. Rij met apps op het beginscherm
-De apps staan al klaar als Kodi-favorieten (SmartTube, Prime Video, VLC, Chrome, Bestanden,
-Android-instellingen, X96 Launcher). Zet ze als rij op het beginscherm:
-Instellingen → Skin-instellingen → **Beginscherm aanpassen** (Customise home) → bij een menu-item of
-widget-rij **Favorieten** kiezen. De precieze naam van het menu verschilt per skin; het staat onder de
-instellingen van Arctic Fuse 2 / Arctic Horizon 2.
+## 4b. Beginscherm: alleen films en series, apps achter de knop "Apps"
+Het beginscherm toont alleen posters van films en series. De apps (SmartTube, Prime Video, VLC, Chrome,
+Bestanden, Android-instellingen, X96 Launcher) staan klaar als Kodi-favorieten en komen achter één knop.
+
+1. Instellingen → Skin-instellingen → **Beginscherm aanpassen** (Customise home).
+2. **Rijen (widgets):** houd alleen rijen met films en series, bijvoorbeeld *Verder kijken*,
+   *Recent toegevoegde films*, *Recent toegevoegde afleveringen* en je Trakt-*watchlist*.
+   Haal rijen met add-ons, apps of favorieten weg.
+3. **Menu:** voeg een menu-item toe (of hernoem een bestaand) naar **Apps** met als actie
+   `ActivateWindow(favouritesbrowser)`. Die knop opent het lijstje met alle apps.
+4. Haal menu-items weg die je niet gebruikt (bijv. Muziek, Afbeeldingen, Games) voor een rustiger menu.
+
+De precieze namen van de menu's verschillen per skin; het staat onder de instellingen van
+Arctic Fuse 2 / Arctic Horizon 2.
 
 ## 5. Trakt
 Trakt houdt bij wat je kijkt en vult "Verder kijken" en je watchlist.
