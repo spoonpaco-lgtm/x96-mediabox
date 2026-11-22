@@ -8,6 +8,14 @@
 		<action>StartAndroidActivity("com.google.android.youtube")</action>
 		</shortcut>
 	<shortcut>
+		<defaultID>npostart</defaultID>
+		<label>NPO Start</label>
+		<label2>Favourite</label2>
+		<icon>DefaultProgram.png</icon>
+		<thumb>androidapp://sources/apps/nl.uitzendinggemist.png</thumb>
+		<action>StartAndroidActivity("nl.uitzendinggemist")</action>
+		</shortcut>
+	<shortcut>
 		<defaultID>primevideo</defaultID>
 		<label>Prime Video</label>
 		<label2>Favourite</label2>
