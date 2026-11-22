@@ -1,0 +1,53 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>movies</defaultID>
+		<label>342</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/extras/icons/film.png</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,MovieTitles,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>tvshows</defaultID>
+		<label>20343</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/extras/icons/tv.png</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,TVShowTitles,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>music</defaultID>
+		<label>2</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/extras/icons/songs.png</icon>
+		<thumb />
+		<action>ActivateWindow(Music)</action>
+		<disabled>True</disabled>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Apps</label>
+		<label2>Custom item</label2>
+		<icon>DefaultProgram.png</icon>
+		<thumb />
+		<action>ActivateWindow(Programs,androidapp://sources/apps/,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>livetv</defaultID>
+		<label>$SKIN[31085|skin.arctic.horizon.2|None]</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/extras/icons/livetv.png</icon>
+		<thumb />
+		<action>ActivateWindow(TVChannels)</action>
+		<visible>PVR.HasTVChannels</visible>
+		</shortcut>
+	<shortcut>
+		<defaultID>videos</defaultID>
+		<label>3</label>
+		<label2>Common Shortcut</label2>
+		<icon>special://skin/extras/icons/video.png</icon>
+		<thumb />
+		<action>ActivateWindow(Videos)</action>
+		<visible>!Library.HasContent(Movies) + !Library.HasContent(TVShows)</visible>
+		</shortcut>
+	</shortcuts>

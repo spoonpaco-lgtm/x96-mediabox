@@ -18,7 +18,7 @@ echo.
 echo   Terugdraaien:
 echo   7. Opruimen terugdraaien (alle apps weer aan)
 echo   8. Kodi-backup terugzetten
-echo   9. Herstel: Kodi crasht bij opstarten (IPTV-instellingen weg, rechten goed)
+echo   9. Herstel: Kodi-bestanden weer van Kodi maken (na handmatige aanpassingen)
 echo.
 echo   0. Stoppen
 echo.

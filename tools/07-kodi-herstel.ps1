@@ -1,25 +1,26 @@
-# Herstel na de crash bij het opstarten van Kodi (versie 0.3.x):
-#  - haalt de vooraf klaargezette IPTV-instellingen weg (die lieten Kodi crashen)
-#  - maakt de door het script neergezette bestanden weer van Kodi zelf (ze waren van root)
+# Herstel: geeft alle Kodi-bestanden terug aan Kodi zelf.
+# Bestanden die via adb (als root) zijn neergezet, kan Kodi anders wel lezen maar niet aanpassen.
+# Haalt ook nog door root neergezette IPTV-instellingen weg (die lieten Kodi 0.3.1 crashen).
 . "$PSScriptRoot\_config.ps1"
 Connect-Box
 
-$lower = "/data/media/0/Android/data/org.xbmc.kodi/files/.kodi/userdata"
-Confirm-Ja "IPTV-instellingen weghalen en de rechten van de Kodi-bestanden herstellen?"
+$lower = "/data/media/0/Android/data/org.xbmc.kodi/files/.kodi"
+Confirm-Ja "Rechten van de Kodi-bestanden herstellen?"
 
 Adb-Shell "am force-stop org.xbmc.kodi"
-Adb-Shell "rm -f $KODI_DATA/userdata/addon_data/pvr.iptvsimple/instance-settings-1.xml $KODI_DATA/userdata/addon_data/pvr.iptvsimple/instance-settings-2.xml"
-
-$owner = (Adb-Shell "stat -c %U:%G $lower/guisettings.xml" | Out-String).Trim()
-Write-Host "Kodi-eigenaar: $owner"
-foreach ($f in @("sources.xml", "advancedsettings.xml", "favourites.xml")) {
-    Adb-Shell "chown $owner $lower/$f"
-    Adb-Shell "chmod 660 $lower/$f"
+$iptv = "$lower/userdata/addon_data/pvr.iptvsimple"
+foreach ($n in 1, 2) {
+    $f = "$iptv/instance-settings-$n.xml"
+    if ((Adb-Shell "stat -c %U $f 2>/dev/null" | Out-String).Trim() -eq "root") { Adb-Shell "rm -f $f" }
 }
-Adb-Shell "chown -R $owner $lower/addon_data/pvr.iptvsimple"
 
+$owner = (Adb-Shell "stat -c %U:%G $lower/userdata/guisettings.xml" | Out-String).Trim()
+Write-Host "Kodi-eigenaar: $owner"
+Adb-Shell "chown -R $owner $lower/userdata"
+Adb-Shell "chmod -R ug+rw $lower/userdata"
+
+$left = (Adb-Shell "find $lower/userdata -user root 2>/dev/null | head -5" | Out-String).Trim()
+if ($left) { Write-Host "Nog van root:`n$left" -ForegroundColor Red } else { Write-Host "Alle Kodi-bestanden zijn weer van Kodi." -ForegroundColor Green }
 Write-Host ""
-Adb-Shell "ls -l $lower/sources.xml $lower/favourites.xml $lower/advancedsettings.xml"
-Write-Host ""
-Write-Host "Klaar. Start Kodi; hij zou nu gewoon moeten opstarten." -ForegroundColor Green
+Write-Host "Klaar. Start Kodi." -ForegroundColor Green
 Read-Host "Enter om af te sluiten"
