@@ -54,24 +54,6 @@ jobs:
           zip=$(curl -fsSL "$base" | grep -oE 'repository\.jurialmunkey-[0-9.]+\.zip' | sort -V | tail -n1)
           test -n "$zip"
           curl -fsSL "$base$zip" -o "kodi/zips/$zip"
-          # a4kSubtitles (ondertitels): repository-zip en de add-on zelf
-          base=https://a4k-openproject.github.io/a4kSubtitles/packages/
-          curl -fsSL "$base" -o /tmp/a4k-index.html
-          grep -oE 'href="[^"]+"' /tmp/a4k-index.html | sort -u || true
-          curl -fsSL "${base}a4kSubtitles-repository.zip" -o kodi/zips/a4kSubtitles-repository.zip
-          mkdir -p /tmp/a4k && unzip -oq kodi/zips/a4kSubtitles-repository.zip -d /tmp/a4k
-          cat /tmp/a4k/*/addon.xml
-          tag=$(gh api repos/a4k-openproject/a4kSubtitles/tags --jq '.[0].name')
-          echo "a4kSubtitles tag: $tag"
-          curl -fsSL "https://github.com/a4k-openproject/a4kSubtitles/archive/refs/tags/$tag.tar.gz" -o /tmp/a4k-src.tgz
-          mkdir -p /tmp/a4ksrc && tar -xzf /tmp/a4k-src.tgz -C /tmp/a4ksrc
-          src=$(ls -d /tmp/a4ksrc/*/)
-          head -n 20 "$src/addon.xml"
-          id=$(grep -oP '<addon[^>]*id="\K[^"]+' "$src/addon.xml" | head -n1)
-          ver=$(grep -oP '<addon[^>]*version="\K[^"]+' "$src/addon.xml" | head -n1)
-          rm -rf "/tmp/pkg-a4k" && mkdir -p "/tmp/pkg-a4k/$id"
-          (cd "$src" && tar --exclude=.git --exclude=.github --exclude=tests --exclude=.githooks -cf - .) | tar -xf - -C "/tmp/pkg-a4k/$id"
-          (cd /tmp/pkg-a4k && zip -qr "$GITHUB_WORKSPACE/kodi/zips/$id-$ver.zip" "$id")
           ls -la kodi/zips
           for z in kodi/zips/*.zip; do unzip -tq "$z"; done
 
