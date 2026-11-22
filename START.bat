@@ -14,6 +14,7 @@ echo   3. Kodi schoon installeren met de X96-instellingen
 echo   4. X96 Launcher installeren (Kodi start dan bij opstarten)
 echo      -- daarna: docs\KODI-HANDLEIDING.md op de projector --
 echo   5. Root over wifi uit (als alles werkt)
+echo   6. Box automatisch verbinden (aan/uit)
 echo.
 echo   Terugdraaien:
 echo   7. Opruimen terugdraaien (alle apps weer aan)
@@ -29,6 +30,7 @@ if "%keuze%"=="2" call :run 02-opruimen.ps1
 if "%keuze%"=="3" call :run 03-kodi-schoon-installeren.ps1
 if "%keuze%"=="4" call :run 04-launcher-installeren.ps1
 if "%keuze%"=="5" call :run 05-root-uit.ps1
+if "%keuze%"=="6" call :run 08-automatisch-verbinden.ps1
 if "%keuze%"=="7" call :run 02-opruimen-terug.ps1
 if "%keuze%"=="8" call :run 06-kodi-terugzetten.ps1
 if "%keuze%"=="9" call :run 07-kodi-herstel.ps1
