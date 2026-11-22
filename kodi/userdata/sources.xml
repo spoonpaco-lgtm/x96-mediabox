@@ -40,6 +40,12 @@
             <path pathversion="1">/sdcard/x96-setup/</path>
             <allowsharing>true</allowsharing>
         </source>
+        <!-- Ondertitels: repository van a4kSubtitles (Install from zip -> a4kSubtitles -> a4kSubtitles-repository.zip) -->
+        <source>
+            <name>a4kSubtitles</name>
+            <path pathversion="1">https://a4k-openproject.github.io/a4kSubtitles/packages/</path>
+            <allowsharing>true</allowsharing>
+        </source>
     </files>
     <games>
         <default pathversion="1"></default>
