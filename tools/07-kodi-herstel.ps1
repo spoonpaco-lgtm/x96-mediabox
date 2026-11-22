@@ -1,6 +1,5 @@
 # Herstel: geeft alle Kodi-bestanden terug aan Kodi zelf.
 # Bestanden die via adb (als root) zijn neergezet, kan Kodi anders wel lezen maar niet aanpassen.
-# Haalt ook nog door root neergezette IPTV-instellingen weg (die lieten Kodi 0.3.1 crashen).
 . "$PSScriptRoot\_config.ps1"
 Connect-Box
 
