@@ -8,12 +8,6 @@ $lower = "/data/media/0/Android/data/org.xbmc.kodi/files/.kodi"
 Confirm-Ja "Rechten van de Kodi-bestanden herstellen?"
 
 Adb-Shell "am force-stop org.xbmc.kodi"
-$iptv = "$lower/userdata/addon_data/pvr.iptvsimple"
-foreach ($n in 1, 2) {
-    $f = "$iptv/instance-settings-$n.xml"
-    if ((Adb-Shell "stat -c %U $f 2>/dev/null" | Out-String).Trim() -eq "root") { Adb-Shell "rm -f $f" }
-}
-
 $owner = (Adb-Shell "stat -c %U:%G $lower/userdata/guisettings.xml" | Out-String).Trim()
 Write-Host "Kodi-eigenaar: $owner"
 Adb-Shell "chown -R $owner $lower/userdata"
