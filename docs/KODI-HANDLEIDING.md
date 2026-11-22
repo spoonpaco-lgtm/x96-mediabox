@@ -66,8 +66,13 @@ elk hun eigen deel, zodat niets dubbel in je geschiedenis komt:
 
 ## 6. IPTV
 Add-ons → Installeren vanuit repository → Kodi Add-on repository → PVR-clients → **PVR IPTV Simple Client** →
-Installeren. De twee lijsten (iptv-org NL en Free-TV) staan al klaar; Kodi laadt ze na een herstart.
-Niets te zien? Open de add-on → Configureren: er moeten twee instanties staan.
+Installeren. Open de add-on daarna één keer (Configureren) en sluit hem weer, zodat Kodi zijn eigen
+instellingenbestand aanmaakt. Zet dan de lijsten erin:
+- **M3U-lijst 1:** `https://iptv-org.github.io/iptv/countries/nl.m3u`
+- **M3U-lijst 2 (tweede instantie):** `https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8`
+
+Typen met de afstandsbediening is lastig: laat het weten na het installeren, dan zet Claude de lijsten
+in het bestand dat Kodi zelf heeft aangemaakt. (Vooraf klaarzetten liet Kodi crashen in versie 0.3.1.)
 
 ## 7. NAS-films en -series
 De vier NAS-mappen staan al klaar onder Video's → Bestanden: **Films**, **Series**, **Kinderfilms**

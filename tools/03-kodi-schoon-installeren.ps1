@@ -24,7 +24,7 @@ Write-Host ""
 Write-Host "Dit gaat er gebeuren:" -ForegroundColor Yellow
 Write-Host "  1. Kodi wordt GEWIST (build, wizards, add-ons, instellingen, kijkgeschiedenis)"
 Write-Host "  2. Kodi start 1x leeg op en wordt weer gesloten"
-Write-Host "  3. Nieuwe instellingen, app-snelkoppelingen, IPTV-lijsten en repo-zips worden neergezet"
+Write-Host "  3. Nieuwe instellingen, app-snelkoppelingen en repo-zips worden neergezet"
 Write-Host "  Backup aanwezig: $($backups[-1].FullName)"
 Confirm-Ja "Kodi schoon installeren?"
 
@@ -72,9 +72,13 @@ $ud = "$KODI_DATA/userdata"
 & $ADB -s $BOX push $tmp "$ud/sources.xml"
 & $ADB -s $BOX push (Join-Path $cfg "advancedsettings.xml") "$ud/advancedsettings.xml"
 & $ADB -s $BOX push (Join-Path $cfg "favourites.xml") "$ud/favourites.xml"
-Adb-Shell "mkdir -p $ud/addon_data/pvr.iptvsimple"
-& $ADB -s $BOX push (Join-Path $cfg "addon_data\pvr.iptvsimple\instance-settings-1.xml") "$ud/addon_data/pvr.iptvsimple/instance-settings-1.xml"
-& $ADB -s $BOX push (Join-Path $cfg "addon_data\pvr.iptvsimple\instance-settings-2.xml") "$ud/addon_data/pvr.iptvsimple/instance-settings-2.xml"
+# Bestanden aan Kodi zelf geven (adb draait als root, anders kan Kodi ze niet aanpassen)
+$lower = "/data/media/0/Android/data/org.xbmc.kodi/files/.kodi/userdata"
+$owner = (Adb-Shell "stat -c %U:%G $lower/guisettings.xml" | Out-String).Trim()
+foreach ($f in @("sources.xml", "advancedsettings.xml", "favourites.xml")) {
+    Adb-Shell "chown $owner $lower/$f"
+    Adb-Shell "chmod 660 $lower/$f"
+}
 
 Adb-Shell "mkdir -p /sdcard/x96-setup"
 if (Test-Path $zips) {

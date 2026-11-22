@@ -18,6 +18,7 @@ echo.
 echo   Terugdraaien:
 echo   7. Opruimen terugdraaien (alle apps weer aan)
 echo   8. Kodi-backup terugzetten
+echo   9. Herstel: Kodi crasht bij opstarten (IPTV-instellingen weg, rechten goed)
 echo.
 echo   0. Stoppen
 echo.
@@ -30,6 +31,7 @@ if "%keuze%"=="4" call :run 04-launcher-installeren.ps1
 if "%keuze%"=="5" call :run 05-root-uit.ps1
 if "%keuze%"=="7" call :run 02-opruimen-terug.ps1
 if "%keuze%"=="8" call :run 06-kodi-terugzetten.ps1
+if "%keuze%"=="9" call :run 07-kodi-herstel.ps1
 if "%keuze%"=="0" exit /b
 goto menu
 
