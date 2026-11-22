@@ -72,6 +72,9 @@ $ud = "$KODI_DATA/userdata"
 & $ADB -s $BOX push $tmp "$ud/sources.xml"
 & $ADB -s $BOX push (Join-Path $cfg "advancedsettings.xml") "$ud/advancedsettings.xml"
 & $ADB -s $BOX push (Join-Path $cfg "favourites.xml") "$ud/favourites.xml"
+# TMDb Helper: player die titels via Elementum afspeelt (zonder dit gebeurt er niets bij afspelen)
+Adb-Shell "mkdir -p $ud/addon_data/plugin.video.themoviedb.helper/players"
+& $ADB -s $BOX push (Join-Path $cfg "addon_data\plugin.video.themoviedb.helper\players\elementum.json") "$ud/addon_data/plugin.video.themoviedb.helper/players/elementum.json"
 # Bestanden aan Kodi zelf geven (adb draait als root, anders kan Kodi ze niet aanpassen)
 $lower = "/data/media/0/Android/data/org.xbmc.kodi/files/.kodi/userdata"
 $owner = (Adb-Shell "stat -c %U:%G $lower/guisettings.xml" | Out-String).Trim()
