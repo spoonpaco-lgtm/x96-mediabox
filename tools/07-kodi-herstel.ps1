@@ -7,8 +7,14 @@ $lower = "/data/media/0/Android/data/org.xbmc.kodi/files/.kodi"
 Confirm-Ja "Rechten van de Kodi-bestanden herstellen?"
 
 Adb-Shell "am force-stop org.xbmc.kodi"
-$owner = (Adb-Shell "stat -c %U:%G $lower/userdata/guisettings.xml" | Out-String).Trim()
+# Eigenaar overnemen van de addons-map: die maakt Kodi zelf aan en wordt nooit via adb overschreven.
+# (Niet van guisettings.xml: als die via adb is neergezet, is die zelf van root.)
+$owner = (Adb-Shell "stat -c %u:%g $lower/addons" | Out-String).Trim()
 Write-Host "Kodi-eigenaar: $owner"
+if (-not $owner -or $owner -like "0:*" -or $owner -notmatch '^\d+:\d+$') {
+    Write-Host "!!! Kon de Kodi-eigenaar niet bepalen ($owner). Er is niets veranderd." -ForegroundColor Red
+    Read-Host "Enter"; exit 1
+}
 Adb-Shell "chown -R $owner $lower/userdata"
 Adb-Shell "chmod -R ug+rw $lower/userdata"
 
