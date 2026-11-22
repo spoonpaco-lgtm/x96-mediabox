@@ -27,6 +27,8 @@ en een eigen Netflix-stijl startscherm.
 | 3 | Kodi wissen + X96-configuratie | menu 8 (backup terugzetten) |
 | 4 | X96 Launcher: Kodi start bij opstarten en op Home | Commando staat in het script |
 | 5 | Root over wifi uit (als alles werkt) | `local.prop` opnieuw zetten |
+| 6 | Automatisch verbinden + Kodi-rechten vanzelf herstellen (Windows-taak, elke 2 min) | menu 6 → `UIT` |
+| 9 | Kodi-rechten handmatig herstellen (niet nodig als 6 aan staat) | n.v.t. |
 
 3. Volg daarna `docs/KODI-HANDLEIDING.md` op de projector.
 

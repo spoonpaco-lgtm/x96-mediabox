@@ -1,6 +1,10 @@
 # Zet "automatisch verbinden met de box" aan of uit.
-# Aan: Windows probeert elke 2 minuten de box via adb te verbinden,
-#      onzichtbaar op de achtergrond. Werkt ook als de F:-schijf er niet in zit.
+# Aan: Windows draait elke 2 minuten onzichtbaar tools\helper\verbind-box.ps1:
+#      - verbindt adb opnieuw met de box als de verbinding weg is;
+#      - geeft Kodi-bestanden die via adb (als root) zijn neergezet terug aan Kodi
+#        (START.bat -> 9 is dan niet meer nodig).
+#      Het hulpscript wordt naar %LOCALAPPDATA%\X96 gekopieerd, dus het werkt ook zonder F:.
+# Staat het al aan, dan wordt het hulpscript bijgewerkt naar de nieuwste versie.
 # Uit: de taak en de hulpbestanden worden weer verwijderd.
 . "$PSScriptRoot\_config.ps1"
 
@@ -10,11 +14,22 @@ $Ps1      = Join-Path $Dir "verbind-box.ps1"
 $Vbs      = Join-Path $Dir "verbind-box.vbs"
 $Log      = Join-Path $Dir "verbind-box.log"
 
+function Write-Helper {
+    New-Item -ItemType Directory -Force -Path $Dir | Out-Null
+    $src = Join-Path $PSScriptRoot "helper\verbind-box.ps1"
+    (Get-Content $src -Raw).Replace("__ADB__", $ADB).Replace("__BOX__", $BOX).Replace("__LOG__", $Log) |
+        Set-Content -Path $Ps1 -Encoding UTF8
+    # VBS-wrapper zodat er geen PowerShell-venster opflitst.
+    "CreateObject(""WScript.Shell"").Run ""powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File """"$Ps1"""""", 0, False" |
+        Set-Content -Path $Vbs -Encoding ASCII
+}
+
 $bestaat = $null -ne (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue)
 
 Write-Host ""
 if ($bestaat) {
-    Write-Host "Automatisch verbinden staat AAN." -ForegroundColor Green
+    Write-Helper
+    Write-Host "Automatisch verbinden staat AAN (hulpscript bijgewerkt naar de nieuwste versie)." -ForegroundColor Green
     $a = Read-Host "Uitzetten? Typ UIT (of Enter om het zo te laten)"
     if ($a -eq "UIT") {
         Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
@@ -27,31 +42,12 @@ if ($bestaat) {
 
 Write-Host "Automatisch verbinden staat UIT."
 Write-Host "Aanzetten laat Windows elke 2 minuten controleren of de box ($BOX) verbonden is,"
-Write-Host "en zo niet, opnieuw verbinden. Er verschijnt geen venster."
+Write-Host "en zo niet, opnieuw verbinden. Ook zet het de rechten van Kodi-bestanden vanzelf goed."
+Write-Host "Er verschijnt geen venster."
 $a = Read-Host "Aanzetten? Typ AAN"
 if ($a -ne "AAN") { Write-Host "Niets veranderd."; Read-Host "Enter"; exit 0 }
 
-New-Item -ItemType Directory -Force -Path $Dir | Out-Null
-
-# Het eigenlijke verbindscript (los van F:, met vaste paden).
-@"
-`$adb = "$ADB"
-`$box = "$BOX"
-`$log = "$Log"
-if (-not (Test-Path `$adb)) { exit 0 }
-`$state = (& `$adb -s `$box get-state 2>`$null)
-if (`$state -ne "device") {
-    & `$adb disconnect `$box 2>`$null | Out-Null
-    `$out = (& `$adb connect `$box 2>&1) -join " "
-    Add-Content -Path `$log -Value ("{0}  {1}" -f (Get-Date -Format "yyyy-MM-dd HH:mm:ss"), `$out)
-    if ((Get-Item `$log).Length -gt 200KB) { Get-Content `$log -Tail 200 | Set-Content `$log }
-}
-"@ | Set-Content -Path $Ps1 -Encoding UTF8
-
-# VBS-wrapper zodat er geen PowerShell-venster opflitst.
-@"
-CreateObject("WScript.Shell").Run "powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File ""$Ps1""", 0, False
-"@ | Set-Content -Path $Vbs -Encoding ASCII
+Write-Helper
 
 $action   = New-ScheduledTaskAction -Execute "wscript.exe" -Argument "`"$Vbs`""
 $elke2min = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 2)
