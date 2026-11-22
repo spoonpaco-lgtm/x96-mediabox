@@ -27,6 +27,8 @@ Add-ons → Installeren vanuit repository → **ElementumOrg repository**
 1. Video-add-ons → **Elementum** → Installeren.
 2. Kodi vraagt om Burst te installeren → **Ja**. Geen vraag? Programma-add-ons → **Elementum Burst** → Installeren.
 3. Bij de eerste start: Instellingen → Services → Bediening → beide "Toepassingsbediening"-opties **aan**, Kodi herstarten.
+4. Elementum → Instellingen → Bibliotheek → "Run Kodi library update after add/delete" op **No**.
+   Anders laat Elementum Kodi 5 minuten na elke start (en daarna elke 6 uur) de hele NAS opnieuw scannen.
 
 ## 4. Netflix-achtige skin
 Add-ons → Installeren vanuit repository → **jurialmunkey** → Uiterlijk → Skin:
@@ -85,6 +87,8 @@ en **Comedy shows**. Per map: (menu/lang indrukken) → **Inhoud wijzigen** →
 
 Op de NAS staat per map een NFS-regel: alleen de box (192.168.178.167), alleen-lezen. Kodi kan dus
 niets wissen of wijzigen op de NAS.
+
+Nieuwe films op de NAS? Video's → Films → (menu) → **Bibliotheek bijwerken**. Kodi scant niet meer vanzelf.
 
 ## 8. Beeld op de projector
 Instellingen → Speler → Video's:
