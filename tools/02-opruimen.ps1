@@ -21,7 +21,7 @@ $pakketten = @(
     @{ id = "com.droidlogic.updater";       wat = "Droidlogic Updater (tweede OTA-updater)" },
     @{ id = "com.android.tv";               wat = "Live TV (geen tuner)" },
     @{ id = "com.android.se";               wat = "Secure Element (NFC, niet aanwezig)" },
-    @{ id = "com.google.android.youtube";   wat = "YouTube-app (SmartTube blijft)" },
+    @{ id = "com.teamsmart.videomanager.tv"; wat = "SmartTube (vervangen door YouTube)" },
     @{ id = "com.google.android.googlequicksearchbox"; wat = "Google-app (~555 MB; spraakzoeken valt weg)" }
 )
 
@@ -35,6 +35,9 @@ foreach ($p in $pakketten) {
     $r = Adb-Shell "pm disable-user --user 0 $($p.id)"
     Write-Host "$($p.wat): $r"
 }
+
+# YouTube-app blijft (of komt terug) aan.
+Write-Host "YouTube aanzetten: $(Adb-Shell "pm enable com.google.android.youtube")"
 
 Adb-Shell "settings put global window_animation_scale 0.5"
 Adb-Shell "settings put global transition_animation_scale 0.5"

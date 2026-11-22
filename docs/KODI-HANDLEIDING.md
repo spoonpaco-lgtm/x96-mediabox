@@ -37,7 +37,7 @@ Installeer allebei, kies er één bij Instellingen → Interface → Skin, en wi
 voelt op de projector. Beide installeren **TMDb Helper** mee; die vult de rijen.
 
 ## 4b. Beginscherm: alleen films en series, apps achter de knop "Apps"
-Het beginscherm toont alleen posters van films en series. De apps (SmartTube, Prime Video, VLC, Chrome,
+Het beginscherm toont alleen posters van films en series. De apps (YouTube, Prime Video, VLC, Chrome,
 Bestanden, Android-instellingen, X96 Launcher) staan klaar als Kodi-favorieten en komen achter één knop.
 
 1. Instellingen → Skin-instellingen → **Beginscherm aanpassen** (Customise home).

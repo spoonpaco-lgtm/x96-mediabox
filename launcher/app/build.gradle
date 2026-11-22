@@ -11,7 +11,7 @@ android {
         minSdk 27
         targetSdk 34
         versionCode 13
-        versionName "0.3.4"
+        versionName "0.3.5"
     }
 
     // Vaste sleutel in de (private) repo, zodat elke nieuwe versie over de vorige heen installeert.

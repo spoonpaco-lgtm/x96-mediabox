@@ -1,11 +1,11 @@
 <shortcuts>
 	<shortcut>
-		<defaultID>smarttube</defaultID>
-		<label>SmartTube</label>
+		<defaultID>youtube</defaultID>
+		<label>YouTube</label>
 		<label2>Favourite</label2>
 		<icon>DefaultProgram.png</icon>
-		<thumb>androidapp://sources/apps/com.teamsmart.videomanager.tv.png</thumb>
-		<action>StartAndroidActivity("com.teamsmart.videomanager.tv")</action>
+		<thumb>androidapp://sources/apps/com.google.android.youtube.png</thumb>
+		<action>StartAndroidActivity("com.google.android.youtube")</action>
 		</shortcut>
 	<shortcut>
 		<defaultID>primevideo</defaultID>

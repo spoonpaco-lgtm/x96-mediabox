@@ -43,4 +43,4 @@ Elke stap die iets verandert, vraagt eerst om `JA`. Stap 4 pas na stap 3: anders
 
 - Firmware krijgt geen updates meer (securitypatch 2021-10). Opruimen helpt, maar de box blijft verouderd.
 - Elementum streamt via torrents en uploadt dus ook. Downloaden uit illegale bron is in Nederland verboden.
-- Casten: YouTube via tv-code in SmartTube. Echte Chromecast built-in kan niet op deze box.
+- Casten: YouTube via tv-code in de YouTube-app. Echte Chromecast built-in kan niet op deze box.

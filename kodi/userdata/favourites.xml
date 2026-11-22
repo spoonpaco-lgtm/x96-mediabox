@@ -1,5 +1,5 @@
 <favourites>
-    <favourite name="SmartTube" thumb="androidapp://sources/apps/com.teamsmart.videomanager.tv.png">StartAndroidActivity(&quot;com.teamsmart.videomanager.tv&quot;)</favourite>
+    <favourite name="YouTube" thumb="androidapp://sources/apps/com.google.android.youtube.png">StartAndroidActivity(&quot;com.google.android.youtube&quot;)</favourite>
     <favourite name="Prime Video" thumb="androidapp://sources/apps/com.amazon.avod.thirdpartyclient.png">StartAndroidActivity(&quot;com.amazon.avod.thirdpartyclient&quot;)</favourite>
     <favourite name="VLC" thumb="androidapp://sources/apps/org.videolan.vlc.png">StartAndroidActivity(&quot;org.videolan.vlc&quot;)</favourite>
     <favourite name="Chrome" thumb="androidapp://sources/apps/com.android.chrome.png">StartAndroidActivity(&quot;com.android.chrome&quot;)</favourite>
