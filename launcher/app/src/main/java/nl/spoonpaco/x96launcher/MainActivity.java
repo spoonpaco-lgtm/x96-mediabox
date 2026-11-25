@@ -13,8 +13,10 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -116,6 +118,34 @@ public class MainActivity extends Activity {
         return i != null && Intent.ACTION_MAIN.equals(i.getAction()) && i.hasCategory(Intent.CATEGORY_HOME);
     }
 
+    // Vlak na het opstarten van de box is de opslag nog niet klaar. Kodi start dan wel,
+    // maar crasht in zijn Splash-scherm (gezien in de crashlog: Splash.stopWatchingExternalStorage)
+    // en je blijft op dit startscherm hangen. Daarom bij een verse opstart eerst wachten tot de
+    // opslag gemount is en de box even "op adem" is, en als Kodi toch meteen terugvalt nog een keer proberen.
+    private static final long JUST_BOOTED_MS = 120_000; // uptime waaronder we "net opgestart" aannemen
+    private static final long SETTLE_MS = 40_000;       // minimale uptime voor we Kodi starten
+    private int bootWaits;
+    private boolean bootLaunch, bootRetried;
+    private long kodiLaunchedAt;
+
+    private static boolean storageReady() {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+    }
+
+    private final Runnable bootKodi = new Runnable() {
+        @Override public void run() {
+            if (!kodiMode()) return;
+            boolean ready = storageReady() && SystemClock.elapsedRealtime() >= SETTLE_MS;
+            if (!ready && bootWaits++ < 45) {          // maximaal ~90 s wachten
+                handler.postDelayed(this, 2_000);
+                return;
+            }
+            bootLaunch = true;
+            kodiLaunchedAt = SystemClock.elapsedRealtime();
+            openKodi();
+        }
+    };
+
     /** Start Kodi; false als Kodi er niet is of niet start. */
     private boolean openKodi() {
         Intent k = getPackageManager().getLaunchIntentForPackage(KODI);
@@ -149,7 +179,20 @@ public class MainActivity extends Activity {
         super.onResume();
         if (kodiPending) {
             kodiPending = false;
-            if (openKodi()) return;
+            if (SystemClock.elapsedRealtime() < JUST_BOOTED_MS) {
+                // Verse opstart: even wachten tot de box klaar is (zie bootKodi).
+                Toast.makeText(this, "Kodi wordt gestart\u2026", Toast.LENGTH_LONG).show();
+                bootWaits = 0;
+                handler.removeCallbacks(bootKodi);
+                handler.post(bootKodi);
+            } else if (openKodi()) {
+                return;
+            }
+        } else if (bootLaunch && !bootRetried && kodiMode()
+                && SystemClock.elapsedRealtime() - kodiLaunchedAt < 30_000) {
+            // Kodi viel binnen 30 s na de opstart-start terug: waarschijnlijk gecrasht. Nog een keer.
+            bootRetried = true;
+            handler.postDelayed(bootKodi, 5_000);
         }
         fillRows();
         handler.post(tick);
@@ -160,6 +203,7 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
         handler.removeCallbacks(tick);
+        handler.removeCallbacks(bootKodi);   // zelf iets anders geopend tijdens het wachten: niet alsnog Kodi
     }
 
     /** Als startscherm: terug-knop doet niets. */
